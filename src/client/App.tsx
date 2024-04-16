@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import { Button, message } from 'antd';
 // Use css or other styling library to style the UI
 import './index.css';

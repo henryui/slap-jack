@@ -78,7 +78,6 @@ const StyledPaddingBorder = styled.div`
   border: #909090 solid 3px;
   border-radius: 10px;
   box-shadow: 3px 5px 5px #cdcdcd;
-
   margin: 20px;
 `;
 
