@@ -109,6 +109,7 @@ const StyledNumber = styled.div<{ $color: string }>`
   color: ${({ $color }) => $color};
   margin-bottom: 3px;
   font-size: 4em;
+  font-weight: bold;
 `;
 
 const StyledShape = styled.img`

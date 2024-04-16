@@ -9,7 +9,7 @@
     "esModuleInterop": true,
     "importHelpers": true,
     "module": "commonjs",
-    "target": "es2019",
+    "target": "es2020",
     "skipLibCheck": true,
     "sourceMap": true,
     "experimentalDecorators": true,
