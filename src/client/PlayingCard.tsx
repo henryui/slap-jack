@@ -1,3 +1,4 @@
+/// <reference types="./types.d.ts" />
 import React from 'react';
 import styled from 'styled-components';
 import { CardNumber, CardShape } from './types';
