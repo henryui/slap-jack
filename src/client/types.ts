@@ -1,6 +1,6 @@
 export enum CardShape {
   Spades = 'Spades',
-  Heart = 'Heart',
+  Hearts = 'Hearts',
   Clubs = 'Clubs',
   Diamonds = 'Diamonds'
 }
@@ -21,7 +21,7 @@ export enum CardNumber {
   King = 'King'
 }
 
-export type PlayingCard = {
+export type PlayingCardType = {
   shape: CardShape;
   number: CardNumber;
 };

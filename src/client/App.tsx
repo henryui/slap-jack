@@ -5,13 +5,14 @@ import { Button, message } from 'antd';
 import './index.css';
 // TODO: Replace me
 import { generateFullDeck, selectRandomly } from './constants';
-import { PlayingCard } from './types';
+import { PlayingCardType } from './types';
+import PlayingCard from './PlayingCard';
 
 // Fetch data using /api/...
 
 const App = () => {
-  const [currentCard, setCurrentCard] = useState<PlayingCard>();
-  const [cards, setCards] = useState<PlayingCard[]>([]);
+  const [currentCard, setCurrentCard] = useState<PlayingCardType>();
+  const [cards, setCards] = useState<PlayingCardType[]>([]);
 
   // This needs to be updated with the API from the server!
   useEffect(() => {
@@ -32,12 +33,8 @@ const App = () => {
     <div className="wrapper">
       <h1>Slap Jack</h1>
 
-      <div>Need to put card image here</div>
       {currentCard ? (
-        <>
-          <div>Shape: {currentCard.shape}</div>
-          <div>Number: {currentCard.number}</div>
-        </>
+        <PlayingCard shape={currentCard.shape} number={currentCard.number} />
       ) : (
         <div>No card selected.</div>
       )}
