@@ -5,4 +5,5 @@
 - typescript
 
 ## Instructions to Start
+- `pnpm install`
 - `pnpm dev`
