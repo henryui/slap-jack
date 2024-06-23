@@ -1,5 +1,6 @@
 // Shouldn't need to change this file
 import mongoose from 'mongoose';
+import UserService from './UserService';
 
 class Repository {
   public async connect(uri: string) {
@@ -14,7 +15,7 @@ class Repository {
   }
 
   private async seed() {
-    //
+    await UserService.createDummyUser();
   }
 }
 

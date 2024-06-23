@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button, message } from 'antd';
+import axios from 'axios';
 // Use css or other styling library to style the UI
 import './index.css';
 // TODO: Replace me
@@ -15,6 +16,11 @@ const App = () => {
 
   // This needs to be updated with the API from the server!
   useEffect(() => {
+    const startOrFetchGame = async () => {
+      const { data } = await axios.post('/api/slap_jack_game');
+      console.log('data', data);
+    };
+    startOrFetchGame();
     setCards(generateFullDeck());
   }, []);
 

@@ -7,7 +7,7 @@
     "build": "webpack --mode production",
     "client": "webpack-dev-server --mode development --devtool inline-source-map --hot",
     "server": "ts-node-dev --respawn --rs --transpile-only src/server/index.js",
-    "start": "yarn dev",
+    "start": "pnpm run dev",
     "seed": "ts-node seed.ts",
     "dev": "concurrently \"npm run server\" \"npm run client\" "
   },
