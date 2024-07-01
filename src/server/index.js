@@ -1,8 +1,10 @@
 // Shouldn't need to change this file
+import 'dotenv/config';
 import express from 'express';
 import expressLoader from './expressLoader';
 import MongoServer from './MongoServer';
 import Repository from './Repository';
+import SocketService from './SocketService';
 
 (async () => {
   try {
@@ -15,7 +17,10 @@ import Repository from './Repository';
 
     expressLoader(app);
 
-    app.listen(8000, () => console.log(`Listening on port ${8000}!`));
+    const server = app.listen(8000, () =>
+      console.log(`Listening on port ${8000}!`),
+    );
+    SocketService.createSocket(server);
   } catch (err) {
     console.error('Failed to start server', err);
     process.exit(1);

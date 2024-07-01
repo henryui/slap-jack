@@ -11,7 +11,7 @@ const COLOR_MAP: Record<CardShape, string> = {
   [CardShape.Spades]: 'black',
   [CardShape.Clubs]: 'black',
   [CardShape.Hearts]: 'red',
-  [CardShape.Diamonds]: 'red'
+  [CardShape.Diamonds]: 'red',
 };
 
 const NUMBER_MAP: Record<CardNumber, string> = {
@@ -27,14 +27,14 @@ const NUMBER_MAP: Record<CardNumber, string> = {
   [CardNumber.Ten]: '10',
   [CardNumber.Jack]: 'J',
   [CardNumber.Queen]: 'Q',
-  [CardNumber.King]: 'K'
+  [CardNumber.King]: 'K',
 };
 
 const ICON_MAP: Record<CardShape, string> = {
   [CardShape.Spades]: spadeSvg,
   [CardShape.Clubs]: clubSvg,
   [CardShape.Hearts]: heartSvg,
-  [CardShape.Diamonds]: diamondSvg
+  [CardShape.Diamonds]: diamondSvg,
 };
 
 interface PlayingCardProps {
@@ -79,6 +79,7 @@ const StyledPaddingBorder = styled.div`
   border-radius: 10px;
   box-shadow: 3px 5px 5px #cdcdcd;
   margin: 20px;
+  background-color: white;
 `;
 
 // TODO: Make hard-coded px responsive
@@ -92,7 +93,7 @@ const StyledCardGrid = styled.div`
 
 const StyledTopBottomRow = styled.div<{ $isTop?: boolean }>`
   display: flex;
-  justify-content: ${({ $isTop }) => ($isTop ? 'flex-start' : 'flex-end')};
+  justify-content: ${({ $isTop }) => (!$isTop ? 'flex-start' : 'flex-end')};
   height: 100%;
 `;
 
@@ -101,7 +102,7 @@ const StyledShapeNumber = styled.div<{ $isTop?: boolean }>`
   flex-direction: column;
   justify-content: ${({ $isTop }) => ($isTop ? 'flex-start' : 'flex-end')};
   align-items: center;
-  width: 30%;
+  width: 26%;
 `;
 
 // TODO: Make hard-coded px responsive

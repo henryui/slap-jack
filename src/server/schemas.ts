@@ -90,6 +90,7 @@ const SlapJackGameSchema = new Schema<SlapJackGameType>(
           enum: Object.keys(CardNumber),
           required: true,
         },
+        _id: false,
       },
     ],
     player1CardSet: [
@@ -104,6 +105,7 @@ const SlapJackGameSchema = new Schema<SlapJackGameType>(
           enum: Object.keys(CardNumber),
           required: true,
         },
+        _id: false,
       },
     ],
     player2CardSet: [
@@ -118,6 +120,7 @@ const SlapJackGameSchema = new Schema<SlapJackGameType>(
           enum: Object.keys(CardNumber),
           required: true,
         },
+        _id: false,
       },
     ],
     player1Misclicks: {

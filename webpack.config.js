@@ -25,7 +25,12 @@ module.exports = {
       },
       {
         test: /\.(png|woff|woff2|eot|ttf|svg)$/,
-        loader: 'url-loader?limit=100000',
+        use: {
+          loader: 'url-loader',
+          options: {
+            limit: 100000,
+          },
+        },
       },
     ],
   },
@@ -35,9 +40,12 @@ module.exports = {
   devServer: {
     port: 3000,
     open: true,
-    proxy: {
-      '/api': 'http://localhost:8000',
-    },
+    proxy: [
+      {
+        context: ['/api'],
+        target: 'http://localhost:8000',
+      },
+    ],
   },
   plugins: [
     new CleanWebpackPlugin([outputDirectory]),

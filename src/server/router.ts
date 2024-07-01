@@ -10,7 +10,7 @@ router.get('/user/:userId', async (req, res) => {
   return res.json(userInfo);
 });
 
-router.post('/slap_jack_game', async (req, res) => {
+router.get('/slap_jack_game', async (req, res) => {
   const randomUser = await UserService.fetchRandomUser();
   const gameInfo = await SlapJackGameService.startGame({
     player1Id: randomUser!._id.toString(),
@@ -23,6 +23,7 @@ router.post('/slap_jack_game', async (req, res) => {
       sequence: true,
       alphaCardRules: true,
     },
+    socketId: req.query.socketId as string,
   });
   return res.json(gameInfo);
 });
