@@ -10,16 +10,46 @@
     "importHelpers": true,
     "module": "commonjs",
     "target": "es2020",
+    "jsx": "react",
     "skipLibCheck": true,
     "sourceMap": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "resolveJsonModule": true,
+    "paths": {
+      "@constants": ["src/client/constants"],
+      "@contexts": ["src/client/contexts"]
+    },
   },
   "include": [
-    "src/server/**/*"
+    "src/server/**/*",
+    "src/client/**/*"
   ],
   "exclude": [
     "node_modules"
   ]
 }
+
+
+// {
+//   "compilerOptions": {
+//     "allowSyntheticDefaultImports": true,
+//     "baseUrl": ".",
+//     "sourceMap": true,
+//     "noImplicitAny": true,
+//     "module": "esnext",
+//     "moduleResolution": "node",
+//     "jsx": "react",
+//     "target": "esnext",
+//     "esModuleInterop": true,
+//     "paths": {
+//       "@constants": ["constants"]
+//     },
+//     "plugins": [
+//       {
+//         "name": "typescript-styled-plugin"
+//       }
+//     ]
+//   },
+//   "include": ["./**/*"],
+// }

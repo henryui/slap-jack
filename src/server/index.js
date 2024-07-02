@@ -4,7 +4,7 @@ import express from 'express';
 import expressLoader from './expressLoader';
 import MongoServer from './MongoServer';
 import Repository from './Repository';
-import SocketService from './SocketService';
+import SocketService from './services/SocketService';
 
 (async () => {
   try {

@@ -12,7 +12,12 @@ import {
 
 export const ObjectId = (stringId: string) => new Types.ObjectId(stringId);
 
-const UserSchema = new Schema<UserType>(
+export interface UserDoc extends UserType, Document {
+  _id: Types.ObjectId;
+  id: string;
+}
+
+const UserSchema = new Schema<UserDoc>(
   {
     username: String,
     wins: Number,
@@ -32,7 +37,12 @@ const User = mongoose.model('User', UserSchema);
 
 export { User, UserSchema };
 
-const SlapJackGameSchema = new Schema<SlapJackGameType>(
+export interface SlapJackGameDoc extends SlapJackGameType, Document {
+  _id: Types.ObjectId;
+  id: string;
+}
+
+const SlapJackGameSchema = new Schema<SlapJackGameDoc>(
   {
     turn: {
       type: String,

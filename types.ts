@@ -1,6 +1,7 @@
 import { Types } from 'mongoose';
 
 export type UserType = {
+  _id: Types.ObjectId;
   username: string;
   wins: number;
   loses: number;
@@ -43,6 +44,7 @@ export enum GameDifficulty {
 }
 
 export type SlapJackGameType = {
+  _id: Types.ObjectId;
   turn: '1' | '2';
   player1Id: Types.ObjectId;
   // If none, then the game is against AI.
@@ -58,6 +60,7 @@ export type SlapJackGameType = {
   // End game
   gameEnd?: Date;
   winner?: Types.ObjectId;
+  isDeleted?: boolean;
   createdAt: Date;
   updatedAt: Date;
 };

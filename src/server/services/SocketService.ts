@@ -17,21 +17,23 @@ class SocketService {
 
       socket.on(
         'getNextCard',
-        async ({ gameId, userId }: { gameId: string; userId?: string }) => {
-          const data = SlapJackGameService.getNextCard(gameId, userId);
-          if (data.error) {
-            socket.emit('error', data.error);
-          } else if (data.result) {
-            socket.emit('newCard', data.result);
-          }
-          if (data.withAI) {
-            const dataAI = await SlapJackGameService.getNextCardAI(gameId);
-            if (dataAI.error) {
-              socket.emit('error', data.error);
-            } else if (dataAI.result) {
-              socket.emit('newCard', dataAI.result);
-            }
-          }
+        ({ gameId, userId }: { gameId: string; userId?: string }) => {
+          SlapJackGameService.getNextCard(gameId, userId);
+        },
+      );
+
+      socket.on(
+        'slapCard',
+        ({
+          gameId,
+          cardSet,
+          userId,
+        }: {
+          gameId: string;
+          cardSet: string;
+          userId: string;
+        }) => {
+          SlapJackGameService.slapCard(gameId, cardSet, userId);
         },
       );
       // when socket disconnects, remove it from the list:
@@ -40,6 +42,11 @@ class SocketService {
       //     console.info(`Client gone [id=${socket.id}]`);
       // });
     });
+  }
+
+  public emitSocketEvent(event: string, socketId: string, data: any) {
+    if (!this.io) return;
+    this.io.to(socketId).emit(event, data);
   }
 
   public closeSocket() {

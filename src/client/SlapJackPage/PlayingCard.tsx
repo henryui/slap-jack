@@ -1,11 +1,11 @@
-/// <reference types="./types.d.ts" />
+/// <reference types="../types.d.ts" />
 import React from 'react';
 import styled from 'styled-components';
-import { CardNumber, CardShape } from './types';
-import spadeSvg from './img/spade.svg';
-import clubSvg from './img/club.svg';
-import heartSvg from './img/heart.svg';
-import diamondSvg from './img/diamond.svg';
+import { CardNumber, CardShape } from '../types';
+import spadeSvg from '../img/spade.svg';
+import clubSvg from '../img/club.svg';
+import heartSvg from '../img/heart.svg';
+import diamondSvg from '../img/diamond.svg';
 
 const COLOR_MAP: Record<CardShape, string> = {
   [CardShape.Spades]: 'black',

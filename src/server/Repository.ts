@@ -1,6 +1,6 @@
 // Shouldn't need to change this file
 import mongoose from 'mongoose';
-import UserService from './UserService';
+import UserService from './services/UserService';
 
 class Repository {
   public async connect(uri: string) {

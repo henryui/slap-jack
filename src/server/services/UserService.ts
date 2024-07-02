@@ -1,4 +1,4 @@
-import { User } from './schemas';
+import { User, UserDoc } from '../schemas';
 
 // This is a mongodb collection class
 
@@ -17,7 +17,7 @@ class UserService {
   }
 
   public async fetchRandomUser() {
-    return User.findOne({}).lean();
+    return User.findOne({}).lean<UserDoc>({ virtuals: true });
   }
 }
 
