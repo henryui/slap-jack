@@ -1,8 +1,9 @@
+// FIXME: Potential duplciate from BE types
 export enum CardShape {
   Spades = 'Spades',
   Hearts = 'Hearts',
   Clubs = 'Clubs',
-  Diamonds = 'Diamonds'
+  Diamonds = 'Diamonds',
 }
 
 export enum CardNumber {
@@ -18,10 +19,15 @@ export enum CardNumber {
   Ten = 'Ten',
   Jack = 'Jack',
   Queen = 'Queen',
-  King = 'King'
+  King = 'King',
 }
 
 export type PlayingCardType = {
   shape: CardShape;
   number: CardNumber;
 };
+
+export enum SlapJackGameState {
+  setConfig = 'setConfig',
+  inGame = 'inGame',
+}

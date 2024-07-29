@@ -72,8 +72,8 @@ export default PlayingCard;
 
 // TODO: Make hard-coded px responsive
 const StyledPaddingBorder = styled.div`
-  width: 310px;
-  height: 464px;
+  width: 270px;
+  height: 404px;
   padding: 7px 5px;
   border: #909090 solid 3px;
   border-radius: 10px;
@@ -84,8 +84,8 @@ const StyledPaddingBorder = styled.div`
 
 // TODO: Make hard-coded px responsive
 const StyledCardGrid = styled.div`
-  width: 300px;
-  height: 450px;
+  width: 260px;
+  height: 390px;
 
   display: grid;
   grid-template-rows: 30% 40% 30%;

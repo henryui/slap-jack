@@ -61,3 +61,5 @@ export const transformToString = (cards: PlayingCardType[]) => {
 export const MAIN_HEADER_HEIGHT = 56;
 
 export const TOTAL_CARDS = 52;
+
+export const CARD_MODAL_CLOSE = 3000;

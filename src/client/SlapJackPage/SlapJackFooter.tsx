@@ -6,18 +6,16 @@ interface SlapJackFooterProps {
   theirCards: number;
   cards: number;
   disabledNextCard: boolean;
-  isAI: boolean;
   getNewCard: () => void;
-  startNewGame: () => Promise<void>;
+  forfeitGame: () => void;
 }
 
 const SlapJackFooter: React.FC<SlapJackFooterProps> = ({
   theirCards,
   cards,
   disabledNextCard,
-  isAI,
   getNewCard,
-  startNewGame,
+  forfeitGame,
 }) => {
   return (
     <StyledFooter>
@@ -30,11 +28,7 @@ const SlapJackFooter: React.FC<SlapJackFooterProps> = ({
         Next Card ({cards} Remaining)
       </StyledNextCard>
 
-      {isAI ? (
-        <StyledNewGame onClick={startNewGame}>New Game</StyledNewGame>
-      ) : (
-        <StyledNewGame>Forfeit</StyledNewGame>
-      )}
+      <StyledNewGame onClick={forfeitGame}>Forfeit</StyledNewGame>
 
       <Tooltip
         title="You will win when their card becomes zero and lose if yours becomes zero."

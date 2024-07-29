@@ -33,7 +33,11 @@ class SocketService {
           cardSet: string;
           userId: string;
         }) => {
-          SlapJackGameService.slapCard(gameId, cardSet, userId);
+          SlapJackGameService.slapCard({
+            gameId,
+            cardSet,
+            userId,
+          });
         },
       );
       // when socket disconnects, remove it from the list:

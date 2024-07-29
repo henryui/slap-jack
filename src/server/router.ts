@@ -23,7 +23,7 @@
 //     gameConfig: {
 //       mode: SlapJackGameMode.AI,
 //       // Only exists with AI mode.
-//       difficulty: GameDifficulty.Easy,
+//       difficulty: GameDifficulty.Medium,
 //       pair: true,
 //       oneBetweenPair: true,
 //       sequence: true,
