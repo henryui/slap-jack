@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Tooltip } from 'antd';
+import { Button, Divider, Tooltip } from 'antd';
 import styled from 'styled-components';
 
 interface SlapJackFooterProps {
@@ -18,27 +18,30 @@ const SlapJackFooter: React.FC<SlapJackFooterProps> = ({
   forfeitGame,
 }) => {
   return (
-    <StyledFooter>
-      <StyledNextCard
-        size="large"
-        type="primary"
-        onClick={getNewCard}
-        disabled={disabledNextCard}
-      >
-        Next Card ({cards} Remaining)
-      </StyledNextCard>
+    <>
+      <Divider />
+      <StyledFooter>
+        <StyledNextCard
+          size="large"
+          type="primary"
+          onClick={getNewCard}
+          disabled={disabledNextCard}
+        >
+          Next Card ({cards} Remaining)
+        </StyledNextCard>
 
-      <StyledNewGame onClick={forfeitGame}>Forfeit</StyledNewGame>
+        <StyledNewGame onClick={forfeitGame}>Forfeit</StyledNewGame>
 
-      <Tooltip
-        title="You will win when their card becomes zero and lose if yours becomes zero."
-        placement="right"
-      >
-        <StyledTheirs type="dashed">
-          They have {theirCards} cards remaining
-        </StyledTheirs>
-      </Tooltip>
-    </StyledFooter>
+        <Tooltip
+          title="You will win when their card becomes zero and lose if yours becomes zero."
+          placement="right"
+        >
+          <StyledTheirs type="dashed">
+            They have {theirCards} cards remaining
+          </StyledTheirs>
+        </Tooltip>
+      </StyledFooter>
+    </>
   );
 };
 

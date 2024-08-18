@@ -231,8 +231,12 @@ class SlapJackGameService {
     gameInfo[`player${gameInfo.turn}CardSet`] = rest;
     gameInfo.playedCardSet = [selected, ...gameInfo.playedCardSet];
 
-    const keep = this.shouldKeepTurn(gameInfo.playedCardSet);
-    const canTake = this.canTakeCards(gameInfo.playedCardSet);
+    const keep =
+      gameInfo.gameConfig.alphaCardRules &&
+      this.shouldKeepTurn(gameInfo.playedCardSet);
+    const canTake =
+      gameInfo.gameConfig.alphaCardRules &&
+      this.canTakeCards(gameInfo.playedCardSet);
     SocketService.emitSocketEvent('newCard', socketId, {
       cards: rest.length,
       playedCard: selected,
@@ -310,8 +314,12 @@ class SlapJackGameService {
     gameInfo.player2CardSet = rest;
     gameInfo.playedCardSet = [selected, ...gameInfo.playedCardSet];
 
-    const keep = this.shouldKeepTurn(gameInfo.playedCardSet);
-    const canTake = this.canTakeCards(gameInfo.playedCardSet);
+    const keep =
+      gameInfo.gameConfig.alphaCardRules &&
+      this.shouldKeepTurn(gameInfo.playedCardSet);
+    const canTake =
+      gameInfo.gameConfig.alphaCardRules &&
+      this.canTakeCards(gameInfo.playedCardSet);
     SocketService.emitSocketEvent('newCard', socketId, {
       cards: gameInfo.player1CardSet.length,
       playedCard: selected,
@@ -571,15 +579,17 @@ class SlapJackGameService {
     }
 
     // Continue on Skipped card take action if it needs
-    const canTake = this.canTakeCards(gameInfo.playedCardSet);
+    const canTake =
+      gameInfo.gameConfig.alphaCardRules &&
+      this.canTakeCards(gameInfo.playedCardSet);
     if (canTake) {
       const userId =
         gameInfo.gameConfig.mode === SlapJackGameMode.AI &&
         gameInfo.turn === '1'
           ? undefined
           : gameInfo.turn === '1'
-            ? '2'
-            : '1';
+            ? gameInfo.player2Id?.toString()
+            : gameInfo.player1Id?.toString();
 
       this.gameJobs[gameId].timeoutJobId = setTimeout(() => {
         this.slapCardSuccess({ gameId, fromTake: true, userId });

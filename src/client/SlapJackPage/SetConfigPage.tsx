@@ -95,6 +95,13 @@ const SetConfigPage: React.FC<SetConfigPageProps> = () => {
     }));
   };
 
+  const toggleWithoutEvent = (item: keyof SlapJackGameConfig) => {
+    setConfig((prev) => ({
+      ...prev,
+      [item]: !prev[item],
+    }));
+  };
+
   return (
     <>
       <StyledHeader>
@@ -176,10 +183,13 @@ const SetConfigPage: React.FC<SetConfigPageProps> = () => {
         <StyledConfigRow>
           <StyledCheckbox
             onChange={(e) => toggleChecks(e, 'alphaCardRules')}
-            disabled
             checked={config.alphaCardRules}
           />
-          Enable Alphabet Card rules
+          <StyledCheckBoxLabel
+            onClick={() => toggleWithoutEvent('alphaCardRules')}
+          >
+            Enable Alphabet Card rules
+          </StyledCheckBoxLabel>
         </StyledConfigRow>
         <StyledAlphaDescription>
           <p>
@@ -211,10 +221,11 @@ const SetConfigPage: React.FC<SetConfigPageProps> = () => {
         <StyledConfigRow>
           <StyledCheckbox
             onChange={(e) => toggleChecks(e, 'pair')}
-            disabled
             checked={config.pair}
           />
-          Pair
+          <StyledCheckBoxLabel onClick={() => toggleWithoutEvent('pair')}>
+            Pair
+          </StyledCheckBoxLabel>
           <Tooltip title={CONFIG_TOOLTIP.pair} placement="right">
             <StyledInfo color="#08c" />
           </Tooltip>
@@ -222,10 +233,13 @@ const SetConfigPage: React.FC<SetConfigPageProps> = () => {
         <StyledConfigRow>
           <StyledCheckbox
             onChange={(e) => toggleChecks(e, 'oneBetweenPair')}
-            disabled
             checked={config.oneBetweenPair}
           />
-          One Between Pair
+          <StyledCheckBoxLabel
+            onClick={() => toggleWithoutEvent('oneBetweenPair')}
+          >
+            One Between Pair
+          </StyledCheckBoxLabel>
           <Tooltip title={CONFIG_TOOLTIP.oneBetweenPair} placement="right">
             <StyledInfo color="#08c" />
           </Tooltip>
@@ -233,10 +247,11 @@ const SetConfigPage: React.FC<SetConfigPageProps> = () => {
         <StyledConfigRow>
           <StyledCheckbox
             onChange={(e) => toggleChecks(e, 'sequence')}
-            disabled
             checked={config.sequence}
           />
-          3 Cards Sequence
+          <StyledCheckBoxLabel onClick={() => toggleWithoutEvent('sequence')}>
+            3 Cards Sequence
+          </StyledCheckBoxLabel>
           <Tooltip title={CONFIG_TOOLTIP.sequence} placement="right">
             <StyledInfo color="#08c" />
           </Tooltip>
@@ -246,7 +261,7 @@ const SetConfigPage: React.FC<SetConfigPageProps> = () => {
       <StyledFooter>
         <StyledNewGame onClick={startGame}>Start New Game (AI)</StyledNewGame>
         <Tooltip title="Multiplayer is currently disabled.">
-          <StyledNewGame disabled>Start New Game (Multiplayer)</StyledNewGame>
+          <StyledNewGame disabled>Create Game Room (Multiplayer)</StyledNewGame>
         </Tooltip>
       </StyledFooter>
     </>
@@ -272,6 +287,10 @@ const StyledConfigRow = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 15px;
+`;
+
+const StyledCheckBoxLabel = styled.div`
+  cursor: pointer;
 `;
 
 const StyledDropdownLabel = styled.div`

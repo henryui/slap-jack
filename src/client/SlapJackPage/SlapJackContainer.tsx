@@ -20,4 +20,5 @@ export default SlapJackContainer;
 
 const StyledSlapJackWrapper = styled.div`
   margin-top: ${MAIN_HEADER_HEIGHT + 20}px;
+  width: 640px;
 `;

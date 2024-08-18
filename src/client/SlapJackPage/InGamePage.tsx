@@ -6,7 +6,7 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { Empty, Modal, message } from 'antd';
+import { Button, Empty, Modal, message } from 'antd';
 import styled from 'styled-components';
 import axios from 'axios';
 import { io, Socket } from 'socket.io-client';
@@ -144,6 +144,7 @@ const InGamePage: React.FC<InGamePageProps> = () => {
       ioRef.current!.on(
         'slapFailure',
         ({ cards, gameEnd }: { cards: number; gameEnd: boolean }) => {
+          message.warning('Slap invalid.');
           setCards(cards);
           if (!gameEnd) {
             setLoading(false);
@@ -156,12 +157,22 @@ const InGamePage: React.FC<InGamePageProps> = () => {
         if (winner) {
           Modal.success({
             title: 'You won!',
-            // closable: false,
+            closable: false,
+            okText: 'Close Game',
+            onOk: () => {
+              ioRef.current?.disconnect();
+              endGame();
+            },
           });
         } else {
           Modal.warn({
             title: 'You lost..',
-            // closable: false,
+            closable: false,
+            okText: 'Close Game',
+            onOk: () => {
+              ioRef.current?.disconnect();
+              endGame();
+            },
           });
         }
       });
