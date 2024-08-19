@@ -9,7 +9,7 @@ class SocketService {
     if (this.io) return;
     this.io = new Server(server, {
       cors: {
-        origin: process.env.ALLOWED_CORS_ORIGIN,
+        origin: process.env.ALLOWED_CORS_ORIGIN || '*',
       },
     });
     this.io.on('connection', (socket) => {
