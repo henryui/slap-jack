@@ -1,17 +1,11 @@
-// import { CronJob } from 'cron';
+import { CronJob } from 'cron';
 
-// const SYSTEM_TZ = 'America/Toronto';
+const SYSTEM_TZ = 'America/Toronto';
 
-// class CronJobService {
-//   public startCronJob(time: string, fcn: Function) {
-//     new CronJob(
-//       time,
-//       fcn,
-//       null,
-//       true,
-//       SYSTEM_TZ,
-//     );
-//   }
-// }
+class CronJobService {
+  public startCronJob(time: string, fcn: () => void) {
+    new CronJob(time, fcn, null, true, SYSTEM_TZ);
+  }
+}
 
-// export default new CronJobService();
+export default new CronJobService();

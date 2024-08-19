@@ -1,4 +1,7 @@
 import { cloneDeep } from 'lodash';
+import { Types } from 'mongoose';
+import moment from 'moment';
+// import NodeCache from 'node-cache';
 import {
   CardNumber,
   CardShape,
@@ -8,14 +11,13 @@ import {
   SlapJackGameMode,
   SlapJackGameType,
 } from '../../../types';
-import SocketService from './SocketService';
+import { CronJobService, SocketService } from './index';
 import { ObjectId, SlapJackGame } from '../schemas';
 import {
   cardNumberMap,
   cardNumberSequenceMap,
   cardShapeMap,
 } from '../constants';
-import { Types } from 'mongoose';
 
 // This is a mongodb collection class
 
@@ -62,6 +64,7 @@ const MEDIUM_AI_SLAP_INT = parseInt(
 const HARD_AI_SLAP_INT = parseInt(process.env.HARD_AI_SLAP_INT || '800', 10);
 
 class SlapJackGameService {
+  // TODO: Move this in-memory game object into NodeCache with TTL
   private gameJobs: Record<
     string,
     {
@@ -69,6 +72,7 @@ class SlapJackGameService {
       socketId: string;
       timeoutJobId?: NodeJS.Timeout;
       inEvent?: boolean;
+      startDate: Date;
     }
   > = {};
 
@@ -88,6 +92,21 @@ class SlapJackGameService {
     sequence: true,
     alphaCardRules: true,
   };
+
+  public startCleanupCron() {
+    const cleanUp = () => {
+      const before24h = moment(new Date()).subtract(1, 'day');
+      const gameIds = Object.keys(this.gameJobs);
+      gameIds.forEach((gameId) => {
+        if (!this.gameJobs[gameId]) return;
+        if (before24h.isSameOrAfter(moment(this.gameJobs[gameId].startDate))) {
+          delete this.gameJobs[gameId];
+        }
+      });
+    };
+    CronJobService.startCronJob('0 0 0 * *', cleanUp);
+    // TODO: set a class getter for cleaned up game jobs, and if not exist, force quit the game.
+  }
 
   private getSlapInterval(gameId: string) {
     const plusMinus = Math.random() > 0.5 ? -1 : 1;
@@ -700,7 +719,11 @@ class SlapJackGameService {
       player2Hits: 0,
     });
     const gameInfo = createdGame.toObject();
-    this.gameJobs[gameInfo._id.toString()] = { gameInfo, socketId };
+    this.gameJobs[gameInfo._id.toString()] = {
+      gameInfo,
+      socketId,
+      startDate: new Date(),
+    };
 
     return {
       gameId: gameInfo._id.toString(),

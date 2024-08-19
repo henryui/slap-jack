@@ -4,7 +4,7 @@ import express from 'express';
 import expressLoader from './expressLoader';
 import MongoServer from './MongoServer';
 import Repository from './Repository';
-import SocketService from './services/SocketService';
+import { SlapJackGameService, SocketService } from './services';
 
 (async () => {
   try {
@@ -21,6 +21,7 @@ import SocketService from './services/SocketService';
       console.log(`Listening on port ${8000}!`),
     );
     SocketService.createSocket(server);
+    SlapJackGameService.startCleanupCron();
   } catch (err) {
     console.error('Failed to start server', err);
     process.exit(1);
