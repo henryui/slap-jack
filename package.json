@@ -105,5 +105,9 @@
       "git add"
     ]
   },
+  "engines" : { 
+    "pnpm" : "8.15.6",
+    "node" : "20.12.2"
+  },
   "keywords": []
 }
