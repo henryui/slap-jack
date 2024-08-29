@@ -53,6 +53,23 @@ class SocketService {
     this.io.to(socketId).emit(event, data);
   }
 
+  public async emitSocketEventAck(event: string, socketId: string, data: any) {
+    if (!this.io) return;
+    await this.io.volatile.timeout(20000).to(socketId).emitWithAck(event, data);
+  }
+
+  public async joinSocketRoom(roomId: string, socketId: string) {
+    if (!this.io) return;
+    const socket = this.io.sockets.sockets.get(socketId);
+    await socket?.join(roomId);
+  }
+
+  public async leaveSocketRoom(roomId: string, socketId: string) {
+    if (!this.io) return;
+    const socket = this.io.sockets.sockets.get(socketId);
+    await socket?.leave(roomId);
+  }
+
   public closeSocket() {
     if (!this.io) return;
     this.io.removeAllListeners();

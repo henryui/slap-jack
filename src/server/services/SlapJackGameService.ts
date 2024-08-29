@@ -104,7 +104,7 @@ class SlapJackGameService {
         }
       });
     };
-    CronJobService.startCronJob('0 0 0 * *', cleanUp);
+    CronJobService.startCronJob('0 0 0 * * *', cleanUp);
     // TODO: set a class getter for cleaned up game jobs, and if not exist, force quit the game.
   }
 

@@ -56,6 +56,9 @@ dependencies:
   mongoose-lean-virtuals:
     specifier: ^0.9.1
     version: 0.9.1(mongoose@8.3.1)
+  nanoid:
+    specifier: ^5.0.7
+    version: 5.0.7
   node-cache:
     specifier: ^5.1.2
     version: 5.1.2
@@ -127,6 +130,9 @@ devDependencies:
   '@types/cors':
     specifier: ^2.8.17
     version: 2.8.17
+  '@types/dotenv-webpack':
+    specifier: ^7.0.7
+    version: 7.0.7(webpack-cli@5.1.4)
   '@types/express':
     specifier: ^4.17.18
     version: 4.17.21
@@ -172,6 +178,9 @@ devDependencies:
   css-loader:
     specifier: ^2.0.0
     version: 2.1.1(webpack@5.92.1)
+  dotenv-webpack:
+    specifier: ^8.1.0
+    version: 8.1.0(webpack@5.92.1)
   eslint:
     specifier: ^7.32.0
     version: 7.32.0
@@ -2294,6 +2303,19 @@ packages:
     dependencies:
       '@types/node': 20.12.7
 
+  /@types/dotenv-webpack@7.0.7(webpack-cli@5.1.4):
+    resolution: {integrity: sha512-tltVokFUeYuSjNmHc6N892Asu/JIQcnH2iUF5A29/VKqv9opq6KlrmnKd/Lt/bBikV/z0YN2K0kguTwWirYCMQ==}
+    dependencies:
+      '@types/node': 20.12.7
+      tapable: 2.2.1
+      webpack: 5.92.1(webpack-cli@5.1.4)
+    transitivePeerDependencies:
+      - '@swc/core'
+      - esbuild
+      - uglify-js
+      - webpack-cli
+    dev: true
+
   /@types/eslint-scope@3.7.7:
     resolution: {integrity: sha512-MzMFlSLBqNF2gcHWO0G1vP/YQyfvrxZ0bF+u7mzUdZ1/xK4A4sru+nraZz5i3iEIk1l1uyicaDVTB4QbbEkAYg==}
     dependencies:
@@ -4353,10 +4375,31 @@ packages:
       is-obj: 1.0.1
     dev: true
 
+  /dotenv-defaults@2.0.2:
+    resolution: {integrity: sha512-iOIzovWfsUHU91L5i8bJce3NYK5JXeAwH50Jh6+ARUdLiiGlYWfGw6UkzsYqaXZH/hjE/eCd/PlfM/qqyK0AMg==}
+    dependencies:
+      dotenv: 8.6.0
+    dev: true
+
+  /dotenv-webpack@8.1.0(webpack@5.92.1):
+    resolution: {integrity: sha512-owK1JcsPkIobeqjVrk6h7jPED/W6ZpdFsMPR+5ursB7/SdgDyO+VzAU+szK8C8u3qUhtENyYnj8eyXMR5kkGag==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      webpack: ^4 || ^5
+    dependencies:
+      dotenv-defaults: 2.0.2
+      webpack: 5.92.1(webpack-cli@5.1.4)
+    dev: true
+
   /dotenv@16.4.5:
     resolution: {integrity: sha512-ZmdL2rui+eB2YwhsWzjInR8LldtZHGDoQ1ugH85ppHKwpUHL7j7rN0Ti9NCnGiQbhaZ11FpR+7ao1dNsmduNUg==}
     engines: {node: '>=12'}
     dev: false
+
+  /dotenv@8.6.0:
+    resolution: {integrity: sha512-IrPdXQsk2BbzvCBGBOTmmSH5SodmqZNt4ERAZDmW4CT+tL8VtvinqywuANaFu4bOMWki16nqf0e4oC0QIaDr/g==}
+    engines: {node: '>=10'}
+    dev: true
 
   /duplexer3@0.1.5:
     resolution: {integrity: sha512-1A8za6ws41LQgv9HrE/66jyC5yuSjQ3L/KOpFtoBilsAK2iA2wuS5rTt1OCzIvtS2V7nVmedsUU+DGRcjBmOYA==}
@@ -7192,6 +7235,12 @@ packages:
   /nanoid@3.3.7:
     resolution: {integrity: sha512-eSRppjcPIatRIMC1U6UngP8XFcz8MQWGQdt1MTBQ7NaAmvXDfvNxbvWV3x2y6CdEUciCSsDHDQZbhYaB8QEo2g==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
+    hasBin: true
+    dev: false
+
+  /nanoid@5.0.7:
+    resolution: {integrity: sha512-oLxFY2gd2IqnjcYyOXD8XGCftpGtZP2AbHbOkthDkvRywH5ayNtPVy9YlOPcHckXzbLTCHpkb7FB+yuxKV13pQ==}
+    engines: {node: ^18 || >=20}
     hasBin: true
     dev: false
 

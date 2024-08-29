@@ -31,3 +31,9 @@ export enum SlapJackGameState {
   setConfig = 'setConfig',
   inGame = 'inGame',
 }
+
+export enum MafiaGameState {
+  setConfig = 'setConfig',
+  inWaitingRoom = 'inWaitingRoom',
+  inGame = 'inGame',
+}

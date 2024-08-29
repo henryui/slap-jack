@@ -1,8 +1,11 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 
 const outputDirectory = 'dist';
+
+const isProd = process.env.NODE_ENV === 'production';
 
 module.exports = {
   entry: ['babel-polyfill', './src/client/index.tsx'],
@@ -60,5 +63,6 @@ module.exports = {
       template: './public/index.html',
       // favicon:
     }),
-  ],
+    !isProd && new Dotenv({ path: path.resolve(__dirname, '.env') }),
+  ].filter(Boolean),
 };

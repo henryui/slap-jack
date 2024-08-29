@@ -43,14 +43,14 @@
 // module.exports = router;
 
 import { ErrorRequestHandler, RequestHandler, Router } from 'express';
-import { SlapJackGameRoute, UserRoute } from './routers';
+import { MafiaGameRoute, SlapJackGameRoute, UserRoute } from './routers';
 
 export const router = Router();
 
 type Method = 'get' | 'post' | 'put' | 'delete';
 
 const handleRoutes = () => {
-  [SlapJackGameRoute, UserRoute].map((routeMap) =>
+  [MafiaGameRoute, SlapJackGameRoute, UserRoute].map((routeMap) =>
     Object.entries(routeMap).forEach(([route, handlers]) => {
       const [httpMethod, uri] = route.split(' ') as [Method, string];
 
@@ -72,5 +72,6 @@ const handleRoutes = () => {
 handleRoutes();
 
 export const errorHandler: ErrorRequestHandler = (err, req, res, _next) => {
+  console.error('Error', err);
   return res.status(500).send(err);
 };

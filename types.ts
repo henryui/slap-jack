@@ -79,3 +79,66 @@ export type SlapJackGameConfig = {
   sequence: boolean;
   alphaCardRules: boolean;
 };
+
+export type MafiaGameConfig = {
+  numMafias: number;
+  numCops: number;
+  numDoctors: number;
+  multiSelect?: boolean;
+};
+
+export enum MafiaGameTurn {
+  Day = 'Day',
+  Mafia = 'Mafia',
+  Cop = 'Cop',
+  Doctor = 'Doctor',
+}
+
+export enum MafiaUserType {
+  Civilian = 'Civilian',
+  Mafia = 'Mafia',
+  Cop = 'Cop',
+  Doctor = 'Doctor',
+}
+
+export enum MafiaGameState {
+  Waiting = 'Waiting',
+  InGame = 'InGame',
+  Ended = 'Ended',
+}
+
+export type MafiaGameUser = {
+  localStorageId: string;
+  userName: string;
+  isMc?: boolean;
+  userType?: MafiaUserType;
+};
+
+export type PickUser = {
+  picker: string;
+  picked: string;
+};
+
+export type MafiaGameType = {
+  roomId: string;
+  config: MafiaGameConfig;
+  numPeopleLeft: number;
+  turn: MafiaGameTurn;
+  users: MafiaGameUser[];
+  state: MafiaGameState;
+  mafiaPick?: string;
+  gameEnd?: Date;
+  winner?: 'Civilians' | 'Mafias';
+  isDeleted?: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
+export type MafiaGamePickType = {
+  gameId: string;
+  userType: MafiaUserType;
+  pickerId: string;
+  pickedId: string;
+  createdAt: Date;
+  updatedAt: Date;
+};

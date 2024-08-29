@@ -6,6 +6,7 @@ import { UserContextProvider } from '@contexts';
 import MainHeader from './MainHeader';
 // import MainPage from './MainPage';
 import PageRedirect from './PageRedirect';
+import MafiaGamePage from './MafiaGamePage';
 import SlapJackPage from './SlapJackPage';
 
 const Router: React.FC = () => (
@@ -19,6 +20,7 @@ const Router: React.FC = () => (
             {/* TODO: This is just an example */}
             {/* <Route path="/main" component={MainPage} /> */}
             <Route path="/slap-jack" component={SlapJackPage} />
+            <Route path="/mafia" component={MafiaGamePage} />
           </Switch>
         </StyledMainContainer>
       </UserContextProvider>

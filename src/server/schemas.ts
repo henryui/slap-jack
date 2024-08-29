@@ -5,6 +5,11 @@ import {
   CardNumber,
   CardShape,
   GameDifficulty,
+  MafiaGamePickType,
+  MafiaGameState,
+  MafiaGameTurn,
+  MafiaGameType,
+  MafiaUserType,
   SlapJackGameMode,
   SlapJackGameType,
   UserType,
@@ -168,8 +173,138 @@ const SlapJackGameSchema = new Schema<SlapJackGameDoc>(
   },
 );
 
-UserSchema.plugin(mongooseLeanVirtuals).plugin(mongooseLeanGetters);
+SlapJackGameSchema.plugin(mongooseLeanVirtuals).plugin(mongooseLeanGetters);
 
 const SlapJackGame = mongoose.model('SlapJackGame', SlapJackGameSchema);
 
 export { SlapJackGame, SlapJackGameSchema };
+
+// Mafia Game
+
+export interface MafiaGameDoc extends MafiaGameType, Document {
+  _id: Types.ObjectId;
+  id: string;
+}
+
+const MafiaGameSchema = new Schema<MafiaGameDoc>(
+  {
+    roomId: {
+      type: String,
+      required: true,
+    },
+    config: {
+      numMafias: {
+        type: Number,
+        required: true,
+      },
+      numCops: {
+        type: Number,
+        required: true,
+      },
+      numDoctors: {
+        type: Number,
+        required: true,
+      },
+      multiSelect: {
+        type: Boolean,
+      },
+    },
+    numPeopleLeft: {
+      type: Number,
+      required: true,
+    },
+    turn: {
+      type: String,
+      required: true,
+      enum: Object.keys(MafiaGameTurn),
+    },
+    users: [
+      {
+        localStorageId: {
+          type: String,
+          required: true,
+        },
+        userName: {
+          type: String,
+          required: true,
+        },
+        isMc: {
+          type: Boolean,
+        },
+        userType: {
+          type: String,
+          enum: [null, ...Object.keys(MafiaUserType)],
+        },
+        _id: false,
+      },
+    ],
+    state: {
+      type: String,
+      required: true,
+      enum: Object.keys(MafiaGameState),
+    },
+    mafiaPick: {
+      type: String,
+    },
+    gameEnd: {
+      type: Date,
+    },
+    winner: {
+      type: String,
+    },
+    isDeleted: {
+      type: Boolean,
+    },
+  },
+  {
+    collection: 'mafiagame',
+    timestamps: true,
+    versionKey: false,
+    strict: true,
+  },
+);
+
+MafiaGameSchema.plugin(mongooseLeanVirtuals).plugin(mongooseLeanGetters);
+
+const MafiaGame = mongoose.model('MafiaGame', MafiaGameSchema);
+
+export { MafiaGame, MafiaGameSchema };
+
+export interface MafiaGamePickDoc extends MafiaGamePickType, Document {
+  _id: Types.ObjectId;
+  id: string;
+}
+
+const MafiaGamePickSchema = new Schema<MafiaGamePickDoc>(
+  {
+    gameId: {
+      type: String,
+      required: true,
+    },
+    userType: {
+      type: String,
+      enum: Object.keys(MafiaUserType),
+      required: true,
+    },
+    pickerId: {
+      type: String,
+      required: true,
+    },
+    pickedId: {
+      type: String,
+      required: true,
+    },
+  },
+  {
+    collection: 'mafiagamepick',
+    timestamps: true,
+    versionKey: false,
+    strict: true,
+  },
+);
+
+MafiaGamePickSchema.plugin(mongooseLeanVirtuals).plugin(mongooseLeanGetters);
+
+const MafiaGamePick = mongoose.model('MafiaGamePick', MafiaGamePickSchema);
+
+export { MafiaGamePick, MafiaGamePickSchema };

@@ -65,8 +65,7 @@ const InGamePage: React.FC<InGamePageProps> = () => {
 
   // This needs to be updated with the API from the server!
   useEffect(() => {
-    // TODO: Change it with ENV
-    ioRef.current = io('http://localhost:8000');
+    ioRef.current = process.env.SOCKET_URL ? io(process.env.SOCKET_URL) : io();
     ioRef.current.on('connect', () => {
       ioRef.current!.on('error', (errMessage: string) => {
         message.error(errMessage);
