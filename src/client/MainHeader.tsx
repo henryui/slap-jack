@@ -14,6 +14,9 @@ const MainHeader: React.FC = () => (
     <Link to="/slap-jack">
       <StyledButton>Slap Jack</StyledButton>
     </Link>
+    <Link to="/mafia">
+      <StyledButton>Mafia</StyledButton>
+    </Link>
   </StyledHeaderContainer>
 );
 

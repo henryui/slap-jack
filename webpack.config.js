@@ -2,6 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
+const { DefinePlugin } = require('webpack');
 
 const outputDirectory = 'dist';
 
@@ -58,6 +59,10 @@ module.exports = {
     },
   },
   plugins: [
+    isProd &&
+      new DefinePlugin({
+        'process.env.SOCKET_URL': JSON.stringify(process.env.SOCKET_URL),
+      }),
     new CleanWebpackPlugin([outputDirectory]),
     new HtmlWebpackPlugin({
       template: './public/index.html',

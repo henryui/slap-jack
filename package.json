@@ -7,7 +7,7 @@
     "build": "pnpm install && tsc && NODE_ENV=production webpack --mode production",
     "client": "NODE_ENV=dev webpack-dev-server --mode development --devtool inline-source-map --hot",
     "server": "ts-node-dev --respawn --rs --transpile-only src/server/index.js",
-    "start": "pnpm run dev",
+    "start": "node build/src/server/index.js",
     "seed": "ts-node seed.ts",
     "dev": "concurrently \"npm run server\" \"npm run client\" "
   },
