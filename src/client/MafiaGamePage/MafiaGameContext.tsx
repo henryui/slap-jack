@@ -88,6 +88,10 @@ export const MafiaGameContextProvider: React.FC<
 
   useEffect(() => {
     if (currentUser.localStorageId) {
+      const existingGameId = localStorage.getItem(
+        'minigameheaven-mafiagame-roomid',
+      );
+
       ioRef.current = process.env.SOCKET_URL
         ? io(process.env.SOCKET_URL)
         : io();
@@ -270,6 +274,10 @@ export const MafiaGameContextProvider: React.FC<
             }
           },
         );
+
+        if (existingGameId) {
+          joinGame(existingGameId);
+        }
       });
     }
 
@@ -345,6 +353,7 @@ export const MafiaGameContextProvider: React.FC<
         isMc: true,
       }));
       setJoinedRoomId(data.roomId);
+      localStorage.setItem('minigameheaven-mafiagame-roomid', data.roomId);
       setGameState(MafiaGameState.inWaitingRoom);
     } catch (err) {
       message.error('Cannot create game.');
@@ -365,6 +374,7 @@ export const MafiaGameContextProvider: React.FC<
       const { data } = await axios.post<{
         state: ServerState;
         users: MafiaGameUser[];
+        turn: MafiaGameTurn;
         role?: MafiaUserType;
       }>(`/api/mafia_game/${roomId}/join`, {
         localStorageId: currentUser.localStorageId,
@@ -372,7 +382,9 @@ export const MafiaGameContextProvider: React.FC<
         socketId: ioRef.current!.id,
       });
       setJoinedRoomId(roomId);
+      localStorage.setItem('minigameheaven-mafiagame-roomid', roomId);
       setUsers(data.users);
+      setGameTurn(data.turn);
       if (data.role) {
         setCurrentUser((prev) => ({
           ...prev,

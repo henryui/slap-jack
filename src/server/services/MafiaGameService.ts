@@ -75,33 +75,19 @@ class MafiaGameService {
       throw new Error('Cannot join due to user with same name.');
     }
 
-    let newUsers = game.users;
     if (!userInUsers) {
-      const updated = await MafiaGame.findByIdAndUpdate(
-        game._id,
-        {
-          $push: {
-            users: {
-              localStorageId: addUser.localStorageId,
-              userName: addUser.userName,
-            },
+      await MafiaGame.findByIdAndUpdate(game._id, {
+        $push: {
+          users: {
+            localStorageId: addUser.localStorageId,
+            userName: addUser.userName,
           },
         },
-        { new: true },
-      ).lean();
-      if (updated) {
-        newUsers = updated.users;
-      }
+      });
     }
 
     // Has to join room first
     await SocketService.joinSocketRoom(gameId, socketId);
-    // Then emit to room
-    await SocketService.emitSocketEventAck(
-      'playerJoin',
-      gameId,
-      userInUsers || addUser,
-    );
 
     // Add to game map
     const { users } = this.gameIdToSocket[gameId];
@@ -113,9 +99,31 @@ class MafiaGameService {
       },
     ];
 
+    // Then emit to room
+    await SocketService.emitSocketEventAck(
+      'playerJoin',
+      gameId,
+      userInUsers
+        ? {
+            localStorageId: userInUsers.localStorageId,
+            userName: userInUsers.userName,
+            isMc: userInUsers.isMc,
+          }
+        : addUser,
+    );
+
+    const updatedGame = await MafiaGame.findById(game._id)
+      .select('users turn state')
+      .lean<Pick<MafiaGameDoc, '_id' | 'users' | 'turn' | 'state'>>();
+
     return {
-      state: game.state,
-      users: newUsers,
+      state: updatedGame?.state,
+      users: updatedGame?.users.map((u) => ({
+        localStorageId: u.localStorageId,
+        userName: u.userName,
+        isMc: u.isMc,
+      })),
+      turn: updatedGame?.turn,
       ...(userInUsers?.userType && { role: userInUsers.userType }),
     };
   }
