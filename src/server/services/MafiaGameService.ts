@@ -125,6 +125,7 @@ class MafiaGameService {
       })),
       turn: updatedGame?.turn,
       ...(userInUsers?.userType && { role: userInUsers.userType }),
+      ...(userInUsers?.isMc && { isMc: true }),
     };
   }
 

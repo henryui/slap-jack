@@ -5,7 +5,7 @@ const PageRedirect: React.FC = () => {
   const { pathname } = useLocation();
   if (pathname === '/') {
     // TODO: Change this to main page
-    return <Redirect to="/slap-jack" />;
+    return <Redirect to="/main" />;
   }
 
   return null;

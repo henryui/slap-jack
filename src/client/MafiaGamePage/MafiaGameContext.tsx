@@ -76,6 +76,9 @@ export const MafiaGameContextProvider: React.FC<
 
   useEffect(() => {
     let storedUid = localStorage.getItem('minigameheaven-mafiagame-uid');
+    const storedUserName = localStorage.getItem(
+      'minigameheaven-mafiagame-username',
+    );
     if (!storedUid) {
       storedUid = nanoid();
       localStorage.setItem('minigameheaven-mafiagame-uid', storedUid);
@@ -83,6 +86,7 @@ export const MafiaGameContextProvider: React.FC<
     setCurrentUser((prev) => ({
       ...prev,
       localStorageId: storedUid as string,
+      ...(storedUserName && { userName: storedUserName }),
     }));
   }, []);
 
@@ -90,6 +94,9 @@ export const MafiaGameContextProvider: React.FC<
     if (currentUser.localStorageId) {
       const existingGameId = localStorage.getItem(
         'minigameheaven-mafiagame-roomid',
+      );
+      const storedUserName = localStorage.getItem(
+        'minigameheaven-mafiagame-username',
       );
 
       ioRef.current = process.env.SOCKET_URL
@@ -225,6 +232,7 @@ export const MafiaGameContextProvider: React.FC<
           ({ winner }: { winner: 'Civilians' | 'Mafias' }, cb) => {
             cb();
             Modal.info({
+              style: { maxWidth: '80vw' },
               title: winner === 'Civilians' ? '시민 승리!' : '마피아 승리!',
               okText: '확인',
               closable: false,
@@ -259,6 +267,7 @@ export const MafiaGameContextProvider: React.FC<
             cb();
             if (isMafia) {
               Modal.success({
+                style: { maxWidth: '80vw' },
                 title: `${pickedName}은...`,
                 content: '마피아가 맞습니다!',
                 okText: '확인',
@@ -266,6 +275,7 @@ export const MafiaGameContextProvider: React.FC<
               });
             } else {
               Modal.warn({
+                style: { maxWidth: '80vw' },
                 title: `${pickedName}은...`,
                 content: '마피아가 아닙니다.',
                 okText: '확인',
@@ -275,7 +285,7 @@ export const MafiaGameContextProvider: React.FC<
           },
         );
 
-        if (existingGameId) {
+        if (existingGameId && storedUserName) {
           joinGame(existingGameId);
         }
       });
@@ -302,6 +312,7 @@ export const MafiaGameContextProvider: React.FC<
     const withRoles = config.numMafias + config.numCops + config.numDoctors;
     if (users.length - withRoles <= 0) {
       Modal.error({
+        style: { maxWidth: '80vw' },
         title: '시민이 한 명 이상 존재해야 합니다.',
       });
       return;
@@ -310,6 +321,7 @@ export const MafiaGameContextProvider: React.FC<
     const majority = Math.ceil(users.length / 2);
     if (config.numMafias >= majority) {
       Modal.error({
+        style: { maxWidth: '80vw' },
         title: '마피아가 과반수 이하여야 합니다.',
       });
       return;
@@ -354,6 +366,10 @@ export const MafiaGameContextProvider: React.FC<
       }));
       setJoinedRoomId(data.roomId);
       localStorage.setItem('minigameheaven-mafiagame-roomid', data.roomId);
+      localStorage.setItem(
+        'minigameheaven-mafiagame-username',
+        currentUser.userName,
+      );
       setGameState(MafiaGameState.inWaitingRoom);
     } catch (err) {
       message.error('Cannot create game.');
@@ -376,6 +392,7 @@ export const MafiaGameContextProvider: React.FC<
         users: MafiaGameUser[];
         turn: MafiaGameTurn;
         role?: MafiaUserType;
+        isMc?: boolean;
       }>(`/api/mafia_game/${roomId}/join`, {
         localStorageId: currentUser.localStorageId,
         userName: currentUser.userName,
@@ -383,12 +400,17 @@ export const MafiaGameContextProvider: React.FC<
       });
       setJoinedRoomId(roomId);
       localStorage.setItem('minigameheaven-mafiagame-roomid', roomId);
+      localStorage.setItem(
+        'minigameheaven-mafiagame-username',
+        currentUser.userName,
+      );
       setUsers(data.users);
       setGameTurn(data.turn);
-      if (data.role) {
+      if (data.role || data.isMc) {
         setCurrentUser((prev) => ({
           ...prev,
-          userType: data.role,
+          ...(data.role && { userType: data.role }),
+          ...(data.isMc && { isMc: data.isMc }),
         }));
       }
       setGameState(
@@ -398,6 +420,7 @@ export const MafiaGameContextProvider: React.FC<
       );
     } catch (err) {
       message.error('Cannot join game. Try changing name.');
+      localStorage.removeItem('minigameheaven-mafiagame-roomid');
     }
   };
 
@@ -417,6 +440,7 @@ export const MafiaGameContextProvider: React.FC<
     }
 
     Modal.warn({
+      style: { maxWidth: '80vw' },
       title: `${votedUser.userName}님을 투표로 추방하시겠습니까?`,
       okText: '확인',
       closable: true,
@@ -440,6 +464,7 @@ export const MafiaGameContextProvider: React.FC<
     }
 
     Modal.warn({
+      style: { maxWidth: '80vw' },
       title: '정말 게임을 나가시겠습니까?',
       okText: '확인',
       closable: true,

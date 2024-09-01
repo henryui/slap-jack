@@ -3,3 +3,7 @@ body {
   max-width: 840px;
   margin: 20px;
 }
+
+.ant-modal-confirm-body.ant-modal-confirm-body-has-title {
+  margin-right: 13px !important;
+}

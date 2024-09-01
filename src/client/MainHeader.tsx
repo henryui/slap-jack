@@ -11,12 +11,13 @@ const MainHeader: React.FC = () => (
     <Link to="/main">
       <StyledHome>Home</StyledHome>
     </Link>
-    <Link to="/slap-jack">
+    {/* TODO: This might not be needed with just home button + main page tiles */}
+    {/* <Link to="/slap-jack">
       <StyledButton>Slap Jack</StyledButton>
     </Link>
     <Link to="/mafia">
       <StyledButton>Mafia</StyledButton>
-    </Link>
+    </Link> */}
   </StyledHeaderContainer>
 );
 
