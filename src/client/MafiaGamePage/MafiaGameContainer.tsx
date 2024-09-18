@@ -9,6 +9,7 @@ import MafiaGameContext from './MafiaGameContext';
 
 const MafiaGameContainer: React.FC = () => {
   const { gameState } = useContext(MafiaGameContext);
+
   return (
     <StyledMafiaGameWrapper>
       {gameState === MafiaGameState.setConfig && <SetConfigPage />}

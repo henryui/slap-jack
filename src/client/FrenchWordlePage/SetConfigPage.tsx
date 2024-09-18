@@ -12,7 +12,7 @@ const SetConfigPage: React.FC<SetConfigPageProps> = () => {
         // Set up difficulty or # of questions, whatever that configures the game.
         <>
             <StyledHeader>
-                <h1>FrenchWordle Game</h1>
+                <h1>FrenchWordle Game Config Page</h1>
             </StyledHeader>
         </>
     )
