@@ -1,6 +1,9 @@
 import React, { createContext, useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import {FrenchWordleState} from '../types';
+import {
+  FrenchWordleUser
+} from '../../../types'
 
 
 export type FrenchWordleContextType = {
@@ -21,6 +24,7 @@ export const FrenchWordleContextProvider: React.FC<
   FrenchWordleContextProviderProps
 > = ({ children }) => {
   //
+  // const [currentUser, setCurrentUser] = useState<FrenchWordleUser>
   const [gameState, setGameState] = useState<FrenchWordleState>(
     FrenchWordleState.setConfig,
   );

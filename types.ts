@@ -142,3 +142,7 @@ export type MafiaGamePickType = {
   createdAt: Date;
   updatedAt: Date;
 };
+
+export type FrenchWordleUser = UserType & {
+  rejectedSubmissions: number;
+}
