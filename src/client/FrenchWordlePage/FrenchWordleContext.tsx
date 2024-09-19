@@ -9,7 +9,7 @@ import {
 export type FrenchWordleContextType = {
   // Define the structure of the context
   gameState: FrenchWordleState;
-
+  
 };
 
 interface FrenchWordleContextProviderProps {
@@ -26,7 +26,7 @@ export const FrenchWordleContextProvider: React.FC<
   //
   // const [currentUser, setCurrentUser] = useState<FrenchWordleUser>
   const [gameState, setGameState] = useState<FrenchWordleState>(
-    FrenchWordleState.setConfig,
+    FrenchWordleState.createQuestions,
   );
   return (
     <FrenchWordleContext.Provider
