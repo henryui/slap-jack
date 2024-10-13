@@ -1,3 +1,4 @@
+// TODO: Move me to separate folders for typing
 import { Types } from 'mongoose';
 
 export type UserType = {
