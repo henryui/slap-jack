@@ -1,68 +1,80 @@
-import React, {useContext, useState} from 'react';
+import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
-import {Button, Divider, Input, Space} from 'antd';
-import type {InputProps} from 'antd';
+import { Button, Divider, Input, Space } from 'antd';
+import type { InputProps } from 'antd';
 
 interface createQuestionsPageProps {}
 
 const createQuestionsPage: React.FC<createQuestionsPageProps> = () => {
-    
-    // We need user id,
-    const [englishWord, setEnglishWord] = useState('');
-    const [frenchWord, setFrenchWord] = useState('');
-    
-    const handleSubmit: InputProps['onSubmit'] = (e) => {
-        console.log(e);
-    }
+  // We need user id,
+  const [englishWord, setEnglishWord] = useState('');
+  const [frenchWord, setFrenchWord] = useState('');
+  console.log('english: ', englishWord);
+  console.log('french: ', frenchWord);
+  const existCheck = (englishWord: string, frenchWord: string): boolean => {
+    //check if englishWord exist in DB
+    //If no, validatePair(englishWord, frenchWord)
+    //If yes, return false;
+    return true;
+  };
 
+  const validatePair = (englishWord: string, frenchWord: string) => {
+    //check if englishWord exist in DB
+    //If yes, return true or false
+    return true;
+  };
 
-    return (
-        <>
-        <StyledSettingContainer>
-            <StyledHeader>
-                <h2>Submit Word Translation</h2>
-            </StyledHeader>
+  const handleSubmit: InputProps['onSubmit'] = (e) => {
+    // existCheck(englishWord, frenchWord);
+    console.log(`e : ${e.target}`);
+  };
 
-            <StyledDivider />
+  return (
+    <>
+      <StyledSettingContainer>
+        <StyledHeader>
+          <h2>Submit Word Translation</h2>
+        </StyledHeader>
 
-            <StyledConfigRow>
-                <StyledDropdownLabel>English:</StyledDropdownLabel>
-                <StyledInput
-                value={englishWord}
-                onChange={(e) => setEnglishWord(e.target.value)}
-                placeholder="Enter English word"
-                />
-            </StyledConfigRow>
+        <StyledDivider />
 
-            <StyledConfigRow>
-                <StyledDropdownLabel>French:</StyledDropdownLabel>
-                <StyledInput
-                value={frenchWord}
-                onChange={(e) => setFrenchWord(e.target.value)}
-                placeholder="Enter French translation"
-                />
-            </StyledConfigRow>
+        <StyledConfigRow>
+          <StyledDropdownLabel>English:</StyledDropdownLabel>
+          <StyledInput
+            value={englishWord}
+            onChange={(e) => setEnglishWord(e.target.value)}
+            placeholder="Enter English word"
+          />
+        </StyledConfigRow>
 
-            <StyledConfigRow>
-                <StyledNewGame type="primary" onClick={handleSubmit}>
-                Submit
-                </StyledNewGame>
-            </StyledConfigRow>
-        </StyledSettingContainer> 
-        </>
-    )
-}
+        <StyledConfigRow>
+          <StyledDropdownLabel>French:</StyledDropdownLabel>
+          <StyledInput
+            value={frenchWord}
+            onChange={(e) => setFrenchWord(e.target.value)}
+            placeholder="Enter French translation"
+          />
+        </StyledConfigRow>
+
+        <StyledConfigRow>
+          <StyledNewGame type="primary" onSubmit={handleSubmit}>
+            Submit
+          </StyledNewGame>
+        </StyledConfigRow>
+      </StyledSettingContainer>
+    </>
+  );
+};
 
 export default createQuestionsPage;
-
 
 // Style Tags
 const StyledHeader = styled.div`
   display: flex;
   justify-content: center;
-  `;
-  
-  const StyledSettingContainer = styled.div`
+`;
+
+const StyledSettingContainer = styled.div`
   border: 1px solid #ccc;
   border-radius: 5px;
   padding: 25px;
