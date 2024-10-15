@@ -37,3 +37,9 @@ export enum MafiaGameState {
   inWaitingRoom = 'inWaitingRoom',
   inGame = 'inGame',
 }
+
+export enum FrenchWordleState {
+  setConfig = 'setConfig',
+  createQuestions = 'createQuestions',
+  inGame = 'inGame',
+}

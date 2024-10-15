@@ -8,6 +8,7 @@ import MainPage from './MainPage';
 import PageRedirect from './PageRedirect';
 import MafiaGamePage from './MafiaGamePage';
 import SlapJackPage from './SlapJackPage';
+import FrenchWordlePage from './FrenchWordlePage';
 
 const Router: React.FC = () => (
   <>
@@ -21,6 +22,7 @@ const Router: React.FC = () => (
             <Route path="/main" component={MainPage} />
             <Route path="/slap-jack" component={SlapJackPage} />
             <Route path="/mafia" component={MafiaGamePage} />
+            <Route path="/french-wordle" component={FrenchWordlePage} />
           </Switch>
         </StyledMainContainer>
       </UserContextProvider>

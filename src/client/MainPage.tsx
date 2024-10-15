@@ -6,7 +6,7 @@ import styled from 'styled-components';
 const games: { name: string; path: string; disabled?: boolean }[] = [
   { name: 'Slap Jack', path: '/slap-jack' },
   { name: 'Mafia', path: '/mafia' },
-  { name: 'Game 3', path: '/game3', disabled: true },
+  { name: 'French Wordle', path: '/french-wordle', disabled: true },
   { name: 'Game 4', path: '/game4', disabled: true },
   { name: 'Game 5', path: '/game5', disabled: true },
   { name: 'Game 6', path: '/game6', disabled: true },
